@@ -12,15 +12,17 @@
 
     <!-- Small, local styles just for the new introduction text -->
     <style>
+      /* allow precise sizing to be applied via JS while keeping sensible fallback */
       .intro {
-        max-width: 720px;
+        /* remove strict max-width so JS can set exact width */
+        max-width: none;
+        width: auto;
         margin: 1.25rem auto 0.75rem;
         padding: 0.75rem 1rem;
         text-align: center;
         font-family:sans-serif, -apple-system, Arial;
         color: white;
-              background: #e69390;
-
+        background: #e69390;
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(0,0,0,0.06);
       }
@@ -36,9 +38,18 @@
         margin-top: 0.5rem;
       }
       .reset { margin-top: 1rem; text-align:center; }
+
+      /* center the envelope wrapper and let it define the visual width */
+      .envelope-wrapper {
+        display: block;
+        margin: 0.75rem auto;
+        /* inline-block so its measured width corresponds to the envelope element */
+        text-align: center;
+      }
+
       /* keep existing layout responsive */
       @media (max-width:480px) {
-        .intro { margin: 0.8rem; font-size: 1.05rem; }
+        .intro { margin: 0.8rem; font-size: 1.05rem; width: auto; }
       }
     </style>
   </head>
@@ -111,7 +122,45 @@
           });
         }
       });
+
+      /* --------
+         New: Match the intro block width to the actual envelope width.
+         This ensures the intro background lines up exactly with the envelope,
+         and updates on window resize for responsiveness.
+         -------- */
+      (function () {
+        function matchIntroToEnvelope() {
+          const env = document.getElementById('envelope');
+          const intro = document.querySelector('.intro');
+          if (!env || !intro) return;
+
+          // measure the rendered width of the envelope element
+          const rect = env.getBoundingClientRect();
+          // If envelope has 0 width (not yet rendered), try again shortly
+          if (rect.width === 0) {
+            return setTimeout(matchIntroToEnvelope, 50);
+          }
+
+          // apply the exact width to the intro so its background matches
+          intro.style.width = rect.width + 'px';
+          // keep intro centered
+          intro.style.marginLeft = 'auto';
+          intro.style.marginRight = 'auto';
+        }
+
+        // Run once after load and again on resize to stay in sync
+        window.addEventListener('load', matchIntroToEnvelope);
+        window.addEventListener('resize', matchIntroToEnvelope);
+
+        // Also ensure the envelope open/close animations don't cause visual jump:
+        // call after any click on open/reset (this keeps widths in sync after layout changes)
+        document.addEventListener('click', function (e) {
+          if (e.target && (e.target.id === 'open' || e.target.id === 'reset')) {
+            // schedule slightly later to allow envelope CSS transitions to adjust layout
+            setTimeout(matchIntroToEnvelope, 120);
+          }
+        });
+      })();
     </script>
   </body>
 </html>
-

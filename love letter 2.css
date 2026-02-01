@@ -220,7 +220,7 @@ h3{ text-align: center;
     margin-left: 0px;
   }
   100% {
-    margin-left: 50px;
+    margin-left: 30px;
   }
 }
 @keyframes sideSway {
@@ -228,11 +228,12 @@ h3{ text-align: center;
     margin-left: 0px;
   }
   100% {
-    margin-left: 50px;
+    margin-left: 30px;
   }
 }
 body {
   background-color: #f0e6f6; /* Soft lavender for a romantic, dreamy feel */
+
 }
 
 .envelope-wrapper {
@@ -267,5 +268,6 @@ body {
   background-color: #d9534f;
   color: #fff;
 }
+
 
 

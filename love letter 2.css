@@ -11,6 +11,9 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
+h3{ text-align: center;}
+
+
 .front {
   position: absolute;
   width: 0;
@@ -263,3 +266,4 @@ body {
   background-color: #d9534f;
   color: #fff;
 }
+

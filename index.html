@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="love letter 2.css" />
   </head>
   <body>
-    <audio autoplay loop hidden>
-  <source src="Kunmie_-_i_admit_Tunesloaded.com.ng.mp3" type="audio/mpeg">
-</audio>
-<h3>MY HEALER🥺❤️</h3>
+    <audio id="bgAudio" autoplay loop playsinline preload="auto">
+      <source src="Kunmie-I-Admit.mp3" type="audio/mpeg">
+    </audio>
+
+    <h3>MY HEALER🥺❤️</h3>
     <div class="envelope-wrapper">
       <div id="envelope" class="close">
         <div class="front flap"></div>
@@ -39,9 +40,34 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="love letter 2.js"></script>
+
+    <script>
+      // Try to start playback immediately when the DOM is ready.
+      document.addEventListener('DOMContentLoaded', function () {
+        const audio = document.getElementById('bgAudio');
+        if (!audio) return;
+        audio.volume = 0.7; // set preferred default volume
+
+        // Programmatic play attempt (may be blocked by browser autoplay policies)
+        const p = audio.play();
+        if (p !== undefined) {
+          p.then(() => {
+            console.log('Background audio playing.');
+          }).catch((err) => {
+            console.warn('Autoplay was blocked by the browser:', err);
+            // Note: We are not showing a play button per your request.
+            // If playback is blocked, the browser requires a user gesture to start audio.
+          });
+        }
+
+        // Also try to start when the "Open" button is clicked (in case autoplay was blocked earlier)
+        const openBtn = document.getElementById('open');
+        if (openBtn) {
+          openBtn.addEventListener('click', function () {
+            audio.play().catch(() => { /* silent fail if blocked */ });
+          });
+        }
+      });
+    </script>
   </body>
 </html>
-
-
-
-

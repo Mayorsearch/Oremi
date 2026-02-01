@@ -3,20 +3,14 @@ $(document).ready(function () {
   var btn_open = $("#open");
   var btn_reset = $("#reset");
 
-  envelope.click(function () {
-    open();
-  });
-  btn_open.click(function () {
-    open();
-  });
-  btn_reset.click(function () {
-    close();
-  });
+  envelope.on('click', openEnvelope);
+  btn_open.on('click', openEnvelope);
+  btn_reset.on('click', closeEnvelope);
 
-  function open() {
+  function openEnvelope() {
     envelope.addClass("open").removeClass("close");
   }
-  function close() {
+  function closeEnvelope() {
     envelope.addClass("close").removeClass("open");
   }
 });

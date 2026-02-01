@@ -2,28 +2,70 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Love letter for crush</title>
+    <title>A Letter for You — Press Open</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
       rel="stylesheet" />
     <link rel="stylesheet" href="love letter 2.css" />
+
+    <!-- Small, local styles just for the new introduction text -->
+    <style>
+      .intro {
+        max-width: 720px;
+        margin: 1.25rem auto 0.75rem;
+        padding: 0.75rem 1rem;
+        text-align: center;
+        font-family:sans-serif, -apple-system, Arial;
+        color: white;
+        /* background: #e69390; */
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      }
+      .intro small {
+        display: block;
+        font-size: 0.7rem;
+        color: #6b6b6b;
+        margin-top: 0.5rem;
+        font-family: sans-serif, -apple-system, Arial;
+      }
+      .cta-note {
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+      }
+      .reset { margin-top: 1rem; text-align:center; }
+      /* keep existing layout responsive */
+      @media (max-width:480px) {
+        .intro { margin: 0.8rem; font-size: 1.05rem; }
+      }
+    </style>
   </head>
   <body>
     <audio id="bgAudio" autoplay loop playsinline preload="auto">
-      <source src="Kunmie-I-Admit.mp3" type="audio/mpeg">
+      <source src="Kunmie-I-Admit.mp3" type="audio/mpeg" />
     </audio>
 
     <h3>MY HEALER🥺❤️</h3>
+
+    <section class="intro" aria-labelledby="intro-heading">
+      <h2 id="intro-heading" style="margin:0 0 0.15rem;">Oremii, this is a small thing from my heart</h2>
+      <p style="margin:0 0.4rem 0.35rem;">
+        I wrote this little letter and picked a song because sometimes words and a melody together can say what I can't say out loud. If you can help me open the envelope,read and listen just for a moment because the song carries a piece of how you make me feel.
+      </p>
+      <!-- <p class="cta-note" style="margin:0;"> -->
+        Read slowly. Let the music fill the space between the lines.
+      </p>
+    </section>
+
     <div class="envelope-wrapper">
       <div id="envelope" class="close">
         <div class="front flap"></div>
         <div class="front pocket"></div>
         <div class="letter">
-          <div class="words line1">To:Iya Alamala</div>
-          <div class="words line2">Oremiii,you are so beautiful</div>
-          <div class="words line3">that every time i see you</div>
+          <div class="words line1">To: Iya Alamala</div>
+          <div class="words line2">Oremiii, you are so beautiful</div>
+          <div class="words line3">that every time I see you</div>
           <div class="words line4">my world stops.🥺🫂</div>
         </div>
         <div class="hearts">
@@ -33,9 +75,10 @@
         </div>
       </div>
     </div>
+
     <div class="reset">
-      <button id="open">Open</button>
-      <button id="reset">Close</button>
+      <button id="open" aria-controls="envelope">Open</button>
+      <button id="reset" aria-controls="envelope">Close</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -55,8 +98,7 @@
             console.log('Background audio playing.');
           }).catch((err) => {
             console.warn('Autoplay was blocked by the browser:', err);
-            // Note: We are not showing a play button per your request.
-            // If playback is blocked, the browser requires a user gesture to start audio.
+            // If autoplay is blocked, the "Open" button below will start audio.
           });
         }
 
